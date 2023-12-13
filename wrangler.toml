@@ -1,0 +1,8 @@
+name = "oauth-2-0-server"
+compatibility_date = "2023-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "maximum-members-db"
+database_id = "67496ab5-2809-4637-b3fc-67fd3adcec7c"
+preview_database_id = "maximum-members-db"

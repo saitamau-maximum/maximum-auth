@@ -61,7 +61,9 @@ CREATE TABLE `users` (
 	`salt` blob NOT NULL
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `client_id` ON `access_tokens` (`client_id`);--> statement-breakpoint
-CREATE UNIQUE INDEX `access_token` ON `access_tokens` (`access_token`);--> statement-breakpoint
-CREATE UNIQUE INDEX `client_id` ON `authorization_codes` (`client_id`);--> statement-breakpoint
-CREATE UNIQUE INDEX `code` ON `authorization_codes` (`code`);
+CREATE UNIQUE INDEX `access_tokens_client_id` ON `access_tokens` (`client_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `access_tokens_access_token` ON `access_tokens` (`access_token`);--> statement-breakpoint
+CREATE UNIQUE INDEX `authorization_codes_client_id` ON `authorization_codes` (`client_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `authorization_codes_code` ON `authorization_codes` (`code`);--> statement-breakpoint
+CREATE UNIQUE INDEX `users_username` ON `users` (`username`);--> statement-breakpoint
+CREATE UNIQUE INDEX `users_email` ON `users` (`email`);

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "a8d33815-1ac3-4f58-bd34-752323634a16",
+  "id": "625559da-9d0c-4cf1-9d4a-b1595eedbc93",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "access_tokens": {
@@ -37,15 +37,15 @@
         }
       },
       "indexes": {
-        "client_id": {
-          "name": "client_id",
+        "access_tokens_client_id": {
+          "name": "access_tokens_client_id",
           "columns": [
             "client_id"
           ],
           "isUnique": true
         },
-        "access_token": {
-          "name": "access_token",
+        "access_tokens_access_token": {
+          "name": "access_tokens_access_token",
           "columns": [
             "access_token"
           ],
@@ -103,15 +103,15 @@
         }
       },
       "indexes": {
-        "client_id": {
-          "name": "client_id",
+        "authorization_codes_client_id": {
+          "name": "authorization_codes_client_id",
           "columns": [
             "client_id"
           ],
           "isUnique": true
         },
-        "code": {
-          "name": "code",
+        "authorization_codes_code": {
+          "name": "authorization_codes_code",
           "columns": [
             "code"
           ],
@@ -423,7 +423,22 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "users_username": {
+          "name": "users_username",
+          "columns": [
+            "username"
+          ],
+          "isUnique": true
+        },
+        "users_email": {
+          "name": "users_email",
+          "columns": [
+            "email"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}

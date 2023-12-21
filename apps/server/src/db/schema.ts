@@ -67,8 +67,8 @@ export const authorizationCodes = sqliteTable(
     state: text("state").notNull(),
   },
   (t) => ({
-    clientIdIdx: uniqueIndex("client_id").on(t.clientId),
-    codeIdx: uniqueIndex("code").on(t.code),
+    clientIdIdx: uniqueIndex("authorization_codes_client_id").on(t.clientId),
+    codeIdx: uniqueIndex("authorization_codes_code").on(t.code),
   })
 );
 
@@ -90,8 +90,8 @@ export const accessTokens = sqliteTable(
     expiresAt: integer("expires_at").notNull(),
   },
   (t) => ({
-    clientIdIdx: uniqueIndex("client_id").on(t.clientId),
-    accessTokenIdx: uniqueIndex("access_token").on(t.accessToken),
+    clientIdIdx: uniqueIndex("access_tokens_client_id").on(t.clientId),
+    accessTokenIdx: uniqueIndex("access_tokens_access_token").on(t.accessToken),
   })
 );
 
@@ -114,13 +114,20 @@ export const refreshTokensRelations = relations(refreshTokens, ({ many }) => ({
   client: many(clients),
 }));
 
-export const users = sqliteTable("users", {
-  id: text("id").primaryKey().notNull(),
-  username: text("username").notNull(),
-  email: text("email").notNull(),
-  hashed_password: blob("hashed_password").notNull(),
-  salt: blob("salt").notNull(),
-});
+export const users = sqliteTable(
+  "users",
+  {
+    id: text("id").primaryKey().notNull(),
+    username: text("username").notNull(),
+    email: text("email").notNull(),
+    hashed_password: blob("hashed_password").notNull(),
+    salt: blob("salt").notNull(),
+  },
+  (t) => ({
+    usernameIdx: uniqueIndex("users_username").on(t.username),
+    emailIdx: uniqueIndex("users_email").on(t.email),
+  })
+);
 
 export const usersRelations = relations(users, ({ many }) => ({
   clients: many(clients),

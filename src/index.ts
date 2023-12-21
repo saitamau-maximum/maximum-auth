@@ -1,7 +1,11 @@
-import { Hono } from 'hono'
+import { Env, Hono } from "hono";
+import { showRoutes } from "hono/dev";
+import { maximumApp } from "./route";
 
-const app = new Hono()
+const app = new Hono<Env>();
 
-app.get('/', (c) => c.text('Hello Hono!'))
+app.route("/", maximumApp);
 
-export default app
+showRoutes(app);
+
+export default app;

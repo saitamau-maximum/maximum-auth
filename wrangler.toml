@@ -6,3 +6,7 @@ binding = "DB"
 database_name = "maximum-members-db"
 database_id = "67496ab5-2809-4637-b3fc-67fd3adcec7c"
 preview_database_id = "maximum-members-db"
+
+[build]
+command = "npm run build"
+watch_dir = "src"

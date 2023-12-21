@@ -6,14 +6,10 @@
     "esModuleInterop": true,
     "strict": true,
     "lib": ["esnext"],
-    "types": [
-      "@cloudflare/workers-types",
-      "vitest/globals",
-      "vitest-environment-miniflare/globals"
-    ],
+    "types": ["@cloudflare/workers-types"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
   },
   "include": ["src"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "build", "**/*.test.ts", "**/*.test.tsx"]
 }

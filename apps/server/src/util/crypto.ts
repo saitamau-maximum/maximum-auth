@@ -4,10 +4,13 @@ interface EncodedPassword {
 }
 
 export const hashSecret = async (
-	password: string,
+	password: string | Uint8Array,
 ): Promise<EncodedPassword> => {
 	const salt = crypto.getRandomValues(new Uint8Array(16));
-	const data = new TextEncoder().encode(password);
+	const data =
+		typeof password === "string"
+			? new TextEncoder().encode(password)
+			: password;
 	const combined = new Uint8Array(salt.length + data.length);
 	combined.set(salt);
 	combined.set(data, salt.length);
@@ -16,10 +19,13 @@ export const hashSecret = async (
 };
 
 export const verifySecret = async (
-	password: string,
+	password: string | Uint8Array,
 	encodedPassword: EncodedPassword,
 ) => {
-	const data = new TextEncoder().encode(password);
+	const data =
+		typeof password === "string"
+			? new TextEncoder().encode(password)
+			: password;
 	const combined = new Uint8Array(encodedPassword.salt.length + data.length);
 	combined.set(encodedPassword.salt);
 	combined.set(data, encodedPassword.salt.length);

@@ -7,8 +7,6 @@ import { Env } from "../../config/env";
 import { OAuthRepository } from "../../repository/oauth";
 import { OAuthService } from "../../service/oauth";
 
-export const oauthApp = new Hono<Env>();
-
 const oauthAuthorizeRequestQuerySchema = object({
   client_id: string(),
   response_type: string(),
@@ -17,7 +15,7 @@ const oauthAuthorizeRequestQuerySchema = object({
 
 const ALLOWED_RESPONSE_TYPE = ["code"];
 
-oauthApp.get(
+export const oauthApp = new Hono<Env>().get(
   "/authorize",
   vValidator("query", oauthAuthorizeRequestQuerySchema),
   async (c) => {

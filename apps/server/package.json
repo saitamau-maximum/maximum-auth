@@ -12,6 +12,9 @@
     "db:migrations:apply:local": "wrangler d1 migrations apply maximum-members-db --local",
     "db:migrations:apply": "wrangler d1 migrations apply maximum-members-db"
   },
+  "module": "src/index.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "dependencies": {
     "@hono/valibot-validator": "^0.2.1",
     "drizzle-orm": "^0.29.1",

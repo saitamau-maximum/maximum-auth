@@ -3,7 +3,6 @@ import { userApp } from "./user";
 import { Env } from "../config/env";
 import { loginApp } from "./login";
 
-export const maximumApp = new Hono<Env>();
-
-maximumApp.route("/users", userApp);
-maximumApp.route("/login", loginApp);
+export const maximumApp = new Hono<Env>()
+  .route("/users", userApp)
+  .route("/login", loginApp);

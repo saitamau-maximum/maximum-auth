@@ -16,6 +16,6 @@ export const constants = {
 		tablet: "1024px",
 	},
 	size: {
-		maxCardWidth: "480px",
+		maxCardWidth: "400px",
 	},
 };

@@ -18,4 +18,7 @@ export const constants = {
 	size: {
 		maxCardWidth: "400px",
 	},
+	gradient: (direction: string, ...colors: string[]) => {
+		return `linear-gradient(${direction}, ${colors.join(", ")})`;
+	},
 };

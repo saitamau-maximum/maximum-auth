@@ -2,7 +2,7 @@ import { createGlobalTheme } from "@vanilla-extract/css";
 
 import { colorVars } from "./contract.css";
 
-createGlobalTheme(".light", colorVars, {
+export const lightColorVars = {
 	gray: {
 		1: "hsl(0 0% 99.0%)",
 		2: "hsl(0 0% 97.3%)",
@@ -46,11 +46,12 @@ createGlobalTheme(".light", colorVars, {
 		12: "hsl(341 100% 34.0%)",
 	},
 	gradient: {
-		primary: "linear-gradient(291deg, #63C178 0%, #34AA8E 100%))",
+		from: "#63C178",
+		to: "#34AA8E",
 	},
-});
+};
 
-createGlobalTheme(".dark", colorVars, {
+export const darkColorVars = {
 	gray: {
 		1: "hsl(0 0% 8.5%)",
 		2: "hsl(0 0% 11.0%)",
@@ -94,9 +95,14 @@ createGlobalTheme(".dark", colorVars, {
 		12: "hsl(341 100% 93.0%)",
 	},
 	gradient: {
-		primary: "linear-gradient(291deg, #34AA8E 0%, #63C178 100%))",
+		from: "#2f9c83",
+		to: "#59ae6b",
 	},
-});
+};
+
+createGlobalTheme(".light", colorVars, lightColorVars);
+
+createGlobalTheme(".dark", colorVars, darkColorVars);
 
 const fontVars = createGlobalTheme(":root", {
 	size: {

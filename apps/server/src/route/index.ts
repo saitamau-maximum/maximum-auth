@@ -1,8 +1,8 @@
 import { Hono } from "hono";
-import { userApp } from "./user";
 import { Env } from "../config/env";
 import { loginApp } from "./login";
+import { userApp } from "./user";
 
 export const maximumApp = new Hono<Env>()
-  .route("/users", userApp)
-  .route("/login", loginApp);
+	.route("/users", userApp)
+	.route("/login", loginApp);

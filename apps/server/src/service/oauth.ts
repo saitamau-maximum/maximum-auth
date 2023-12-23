@@ -41,4 +41,21 @@ export class OAuthService {
 
 		return ok;
 	}
+
+	async createClient(param: {
+		name: string;
+		redirectUri: string;
+		hashedSecret: Uint8Array;
+		salt: Uint8Array;
+	}) {
+		const id = crypto.randomUUID();
+		await this.oauthRepo.createClient({
+			name: param.name,
+			redirectUri: param.redirectUri,
+			hashedSecret: param.hashedSecret,
+			salt: param.salt,
+		});
+
+		return id;
+	}
 }

@@ -1,35 +1,93 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useForm } from "react-hook-form";
+import { client } from "./lib/hono";
+import {
+  type Input,
+  email,
+  maxLength,
+  minLength,
+  object,
+  string,
+} from "valibot";
+import { valibotResolver } from "@hookform/resolvers/valibot";
+
+const createUserFormSchema = object({
+  username: string([
+    minLength(3, "username must be at least 3 characters"),
+    maxLength(32, "username must be at most 32 characters"),
+  ]),
+  email: string([email("email must be a valid email address")]),
+  password: string([
+    minLength(8, "password must be at least 8 characters"),
+    maxLength(64, "password must be at most 64 characters"),
+  ]),
+});
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<Input<typeof createUserFormSchema>>({
+    resolver: valibotResolver(createUserFormSchema),
+  });
+
+  const onSubmit = async (
+    data: Input<typeof createUserFormSchema>
+  ): Promise<void> => {
+    console.log(data);
+    const res = await client.users.$post({
+      json: {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      },
+    });
+    if (!res.ok) {
+      const json = await res.json();
+      console.log(json.message);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+    <div className="App">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          <label htmlFor="username">Username</label>
+          <br />
+          <input
+            {...register("username")}
+            placeholder="username"
+            id="username"
+            required
+          />
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+        <p>{errors.username?.message}</p>
+        <p>
+          <label htmlFor="email">Email</label>
+          <br />
+          <input
+            {...register("email")}
+            placeholder="email"
+            id="email"
+            required
+          />
+        </p>
+        <p>{errors.email?.message}</p>
+        <p>
+          <label htmlFor="password">Password</label>
+          <br />
+          <input
+            {...register("password")}
+            placeholder="password"
+            id="password"
+            required
+          />
+        </p>
+        <p>{errors.password?.message}</p>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  );
 }
 
-export default App
+export default App;

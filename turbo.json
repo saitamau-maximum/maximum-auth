@@ -2,7 +2,8 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "outputs": ["dist"]
     },
     "test": {
       "dependsOn": ["build"]
@@ -10,6 +11,12 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "check:fix": {
+      "dependsOn": ["build"]
+    },
+    "check": {
+      "dependsOn": ["build"]
     }
   },
   "globalDependencies": [".env", "tsconfig.json"]

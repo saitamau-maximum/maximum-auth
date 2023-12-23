@@ -125,20 +125,6 @@ const spacingVars = createGlobalTheme(":root", {
 	full: "100%",
 });
 
-const zIndexVars = createGlobalTheme(":root", {
-	normal: "0",
-	forward: "1",
-	float: "10",
-	windowFloat: "100",
-	modal: "1000",
-	overlay: "10000",
-});
-
-const breakpointVars = {
-	mobile: "768px",
-	tablet: "1024px",
-};
-
 /**
  * @deprecated
  * styles/theme.cssではなく、styles/indexをimportしてください
@@ -147,6 +133,4 @@ export const vars = {
 	color: colorVars,
 	font: fontVars,
 	spacing: spacingVars,
-	zIndex: zIndexVars,
-	breakpoint: breakpointVars,
 };

@@ -10,3 +10,7 @@ export const vars = {
 		},
 	},
 };
+
+import { constants as cs } from "./constant";
+
+export const constants = cs;

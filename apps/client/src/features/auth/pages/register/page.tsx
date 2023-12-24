@@ -1,14 +1,15 @@
 import { CenterLayout } from "@/components/layout/center-layout";
+
 import { PageTitle } from "../_components/page-title";
 import { PageWrapper } from "../_components/page-wrapper";
-import { LoginForm } from "./_components/login-form";
+import { RegisterForm } from "./_components/register-form";
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
 	return (
 		<CenterLayout>
 			<PageWrapper>
-				<PageTitle>ログイン</PageTitle>
-				<LoginForm />
+				<PageTitle>新規会員登録</PageTitle>
+				<RegisterForm />
 			</PageWrapper>
 		</CenterLayout>
 	);

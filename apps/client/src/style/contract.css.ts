@@ -54,6 +54,7 @@ export const semanticVars = createThemeContract({
 		main: null,
 		sub: null,
 		disabled: null,
+		hover: null,
 	},
 	text: {
 		strong: null,

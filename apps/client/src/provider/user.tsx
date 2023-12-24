@@ -1,6 +1,5 @@
-import { client } from "@/lib/hono";
+import { getClient } from "@/lib/hono";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { LoadingOverlayContext } from "./loading-overlay";
 
 interface User {
@@ -9,16 +8,18 @@ interface User {
 	username: string;
 }
 
-interface AuthUserContextProps {
-	user: User | null;
-	setUser: (user: User) => void;
-	fetchUser: () => Promise<User | null>;
-}
+type UserState =
+	| { state: "initializing" }
+	| { state: "authenticated"; user: User }
+	| { state: "unauthenticated" };
+
+type AuthUserContextProps = {
+	updateUser: () => Promise<void>;
+} & UserState;
 
 export const AuthUserContext = createContext<AuthUserContextProps>({
-	user: null,
-	setUser: () => {},
-	fetchUser: async () => null,
+	state: "initializing",
+	updateUser: async () => void 0,
 });
 
 interface LoadingProviderProps {
@@ -26,12 +27,13 @@ interface LoadingProviderProps {
 }
 
 export const AuthUserProvider = ({ children }: LoadingProviderProps) => {
-	const [user, setUser] = useState<User | null>(null);
+	const [userState, setUserState] = useState<UserState>({
+		state: "initializing",
+	});
 	const { setIsLoading } = useContext(LoadingOverlayContext);
-	const navigate = useNavigate();
 
 	const fetchUser = async () => {
-		const res = await client.users.me.$get();
+		const res = await getClient().users.me.$get();
 
 		if (!res.ok) {
 			return null;
@@ -39,31 +41,33 @@ export const AuthUserProvider = ({ children }: LoadingProviderProps) => {
 
 		const data = await res.json();
 
-		if (data.type === "UserNotFound") {
+		if (data.type !== "UserFound") {
 			return null;
 		}
 
 		return data.user;
 	};
 
+	const updateUser = async () => {
+		setUserState({ state: "initializing" });
+		const user = await fetchUser();
+		if (!user) {
+			setUserState({ state: "unauthenticated" });
+			return;
+		}
+		setUserState({ state: "authenticated", user });
+	};
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		setIsLoading(true);
-		fetchUser()
-			.then((user) => {
-				if (user) {
-					setUser(user);
-				} else {
-					navigate("/login");
-				}
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		updateUser().finally(() => {
+			setIsLoading(false);
+		});
 	}, []);
 
 	return (
-		<AuthUserContext.Provider value={{ user, setUser, fetchUser }}>
+		<AuthUserContext.Provider value={{ ...userState, updateUser }}>
 			{children}
 		</AuthUserContext.Provider>
 	);

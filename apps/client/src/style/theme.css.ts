@@ -110,6 +110,7 @@ createGlobalTheme(".light", semanticVars, {
 		main: colorVars.gray[2],
 		sub: colorVars.gray[1],
 		disabled: colorVars.gray[3],
+		hover: colorVars.gray[4],
 	},
 	text: {
 		strong: colorVars.gray[12],
@@ -129,6 +130,7 @@ createGlobalTheme(".dark", semanticVars, {
 		main: colorVars.gray[1],
 		sub: colorVars.gray[2],
 		disabled: colorVars.gray[3],
+		hover: colorVars.gray[4],
 	},
 	text: {
 		strong: colorVars.gray[12],

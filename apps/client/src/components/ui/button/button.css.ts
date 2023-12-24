@@ -15,6 +15,7 @@ export const styles = {
 		border: "none",
 		padding: `${vars.spacing[2]} ${vars.spacing[4]}`,
 		fontWeight: 600,
+		fontSize: vars.font.size.base,
 		cursor: "pointer",
 		transition: vars.transition.normal("opacity", "background"),
 		width: "fit-content",

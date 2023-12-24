@@ -11,12 +11,14 @@ export class UserService {
 	async create(username: string, email: string, password: string) {
 		const { salt, hash } = await hashSecret(password);
 
-		await this.userRepo.create({
+		const user = await this.userRepo.create({
 			username,
 			email,
 			hashedPassword: hash,
 			salt,
 		});
+
+		return user.id;
 	}
 
 	async authenticate(email: string, password: string) {

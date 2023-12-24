@@ -1,45 +1,22 @@
-import { Hono } from "hono";
-import { createMiddleware } from "hono/factory";
-import { UserRepository } from "../repository/user";
-
 import { vValidator } from "@hono/valibot-validator";
-import { deleteCookie, getCookie, setCookie } from "hono/cookie";
+import { Hono } from "hono";
+import { sign } from "hono/jwt";
 import { email, maxLength, minLength, object, string } from "valibot";
-import {
-	AUTH_CONTEXT_KEY,
-	AUTH_COOKIE_NAME,
-	AUTH_COOKIE_POLICY,
-} from "../config/auth";
+import { JWTPayload } from "../config/auth";
 import { Env } from "../config/env";
+import { UserRepository } from "../repository/user";
 import { UserService } from "../service/user";
+import { jwtMiddleware } from "../util/middleware";
 
 const userPostRequestSchema = object({
-	username: string([
-		minLength(3, "username must be at least 3 characters"),
-		maxLength(32, "username must be at most 32 characters"),
-	]),
-	email: string([email("email must be a valid email address")]),
-	password: string([
-		minLength(8, "password must be at least 8 characters"),
-		maxLength(64, "password must be at most 64 characters"),
-	]),
+	username: string([minLength(3), maxLength(32)]),
+	email: string([email()]),
+	password: string([minLength(8), maxLength(64)]),
 });
 
 const userAuthRequestSchema = object({
 	email: string(),
 	password: string(),
-});
-
-export const userAuthMiddleware = createMiddleware<Env>(async (c, next) => {
-	const uid = getCookie(c, AUTH_COOKIE_NAME);
-
-	if (!uid) {
-		return c.json({ message: "error" }, 401);
-	}
-
-	c.set(AUTH_CONTEXT_KEY, uid);
-
-	await next();
 });
 
 export const userApp = new Hono<Env>()
@@ -51,17 +28,26 @@ export const userApp = new Hono<Env>()
 			}
 		}),
 		async (c) => {
-			console.log("userApp.post");
 			const body = c.req.valid("json");
 			const userRepo = new UserRepository(c.env.DB);
 			const userService = new UserService(userRepo);
 
 			try {
-				await userService.create(body.username, body.email, body.password);
-				return c.json({ message: "ok" });
+				const userId = await userService.create(
+					body.username,
+					body.email,
+					body.password,
+				);
+
+				const payload = {
+					uid: userId,
+				} satisfies JWTPayload;
+				const token = await sign(payload, c.env.JWT_SECRET);
+
+				return c.json({ type: "UserCreated" as const, token });
 			} catch (e) {
 				console.error(e);
-				return c.json({ message: "Internal server error" }, 500);
+				return c.json({ type: "InternalServerError" as const }, 500);
 			}
 		},
 	)
@@ -84,28 +70,34 @@ export const userApp = new Hono<Env>()
 					return c.json({ type: "AuthenticationFailed" as const }, 401);
 				}
 
-				setCookie(
-					c,
-					AUTH_COOKIE_NAME,
-					user.id,
-					AUTH_COOKIE_POLICY(c.env.ENV === "development"),
-				);
-				return c.json({ type: "AuthenticationSucceeded" as const });
+				const payload = {
+					uid: user.id,
+				} satisfies JWTPayload;
+				const token = await sign(payload, c.env.JWT_SECRET);
+
+				return c.json({ type: "AuthenticationSucceeded" as const, token });
 			} catch (e) {
 				console.error(e);
 				return c.json({ type: "InternalServerError" as const }, 500);
 			}
 		},
 	)
-	.get("/me", userAuthMiddleware, async (c) => {
-		const userId = c.get(AUTH_CONTEXT_KEY);
+	.get("/me", jwtMiddleware, async (c) => {
+		const payload = c.get("jwtPayload") as JWTPayload;
+
 		const userRepo = new UserRepository(c.env.DB);
-		const user = await userRepo.getById({ id: userId });
+		const user = await userRepo.getById({ id: payload.uid });
 
 		if (!user) {
-			deleteCookie(c, AUTH_COOKIE_NAME);
 			return c.json({ type: "UserNotFound" as const }, 404);
 		}
 
-		return c.json({ type: "UserFound" as const, user });
+		return c.json({
+			type: "UserFound" as const,
+			user: {
+				id: user.id,
+				username: user.username,
+				email: user.email,
+			},
+		});
 	});

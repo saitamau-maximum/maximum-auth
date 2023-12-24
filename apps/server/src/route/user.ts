@@ -81,7 +81,7 @@ export const userApp = new Hono<Env>()
 				const user = await userService.authenticate(body.email, body.password);
 
 				if (!user) {
-					return c.json({ message: "error" }, 401);
+					return c.json({ type: "AuthenticationFailed" as const }, 401);
 				}
 
 				setCookie(
@@ -90,10 +90,10 @@ export const userApp = new Hono<Env>()
 					user.id,
 					AUTH_COOKIE_POLICY(c.env.ENV === "development"),
 				);
-				return c.json({ message: "ok" });
+				return c.json({ type: "AuthenticationSucceeded" as const });
 			} catch (e) {
 				console.error(e);
-				return c.json({ message: "Internal server error" }, 500);
+				return c.json({ type: "InternalServerError" as const }, 500);
 			}
 		},
 	)

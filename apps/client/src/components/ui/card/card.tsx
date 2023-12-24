@@ -13,3 +13,7 @@ export const Card = ({ children, shrink = false }: Props) => (
 		{children}
 	</div>
 );
+
+export const CardTitle = ({ children }: Props) => (
+	<p className={styles.cardTitle}>{children}</p>
+);

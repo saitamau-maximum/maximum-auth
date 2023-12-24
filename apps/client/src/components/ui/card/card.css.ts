@@ -15,4 +15,10 @@ export const styles = {
 	cardContainerShrink: style({
 		maxWidth: constants.size.maxCardWidth,
 	}),
+	cardTitle: style({
+		fontSize: vars.font.size.xl,
+		fontWeight: 600,
+		color: vars.semantic.text.strong,
+		marginBottom: vars.spacing[4],
+	}),
 };

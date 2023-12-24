@@ -1,4 +1,5 @@
 import { createGlobalTheme } from "@vanilla-extract/css";
+import { semanticVars } from "./contract.css";
 
 import { colorVars } from "./contract.css";
 
@@ -103,6 +104,44 @@ export const darkColorVars = {
 createGlobalTheme(".light", colorVars, lightColorVars);
 
 createGlobalTheme(".dark", colorVars, darkColorVars);
+
+createGlobalTheme(".light", semanticVars, {
+	background: {
+		main: colorVars.gray[2],
+		sub: colorVars.gray[1],
+		disabled: colorVars.gray[3],
+	},
+	text: {
+		strong: colorVars.gray[12],
+		base: colorVars.gray[11],
+		weak: colorVars.gray[9],
+		weaker: colorVars.gray[7],
+		error: colorVars.red[9],
+	},
+	border: {
+		main: colorVars.gray[4],
+		error: colorVars.red[6],
+	},
+});
+
+createGlobalTheme(".dark", semanticVars, {
+	background: {
+		main: colorVars.gray[1],
+		sub: colorVars.gray[2],
+		disabled: colorVars.gray[3],
+	},
+	text: {
+		strong: colorVars.gray[12],
+		base: colorVars.gray[11],
+		weak: colorVars.gray[9],
+		weaker: colorVars.gray[7],
+		error: colorVars.red[9],
+	},
+	border: {
+		main: colorVars.gray[5],
+		error: colorVars.red[6],
+	},
+});
 
 const fontVars = createGlobalTheme(":root", {
 	size: {

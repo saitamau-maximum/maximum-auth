@@ -1,3 +1,5 @@
+import { constants as cs } from "./constant";
+import { semanticVars } from "./contract.css";
 import { vars as vs } from "./theme.css";
 
 export const vars = {
@@ -9,8 +11,7 @@ export const vars = {
 				.join(", ");
 		},
 	},
+	semantic: semanticVars,
 };
-
-import { constants as cs } from "./constant";
 
 export const constants = cs;

@@ -48,3 +48,22 @@ export const colorVars = createThemeContract({
 		to: null,
 	},
 });
+
+export const semanticVars = createThemeContract({
+	background: {
+		main: null,
+		sub: null,
+		disabled: null,
+	},
+	text: {
+		strong: null,
+		base: null,
+		weak: null,
+		weaker: null,
+		error: null,
+	},
+	border: {
+		main: null,
+		error: null,
+	},
+});

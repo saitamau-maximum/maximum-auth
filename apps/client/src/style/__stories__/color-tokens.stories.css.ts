@@ -14,11 +14,11 @@ export const styles = {
 		borderRadius: "50%",
 		borderWidth: "1px",
 		borderStyle: "solid",
-		borderColor: vars.color.gray[6],
+		borderColor: vars.semantic.border.main,
 	}),
 	tokenDisplayName: style({
 		fontSize: "0.75rem",
-		color: vars.color.gray[12],
+		color: vars.semantic.text.base,
 	}),
 	tokensContainer: style({
 		display: "flex",

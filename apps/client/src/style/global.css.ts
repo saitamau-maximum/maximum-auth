@@ -1,11 +1,10 @@
 import { globalStyle } from "@vanilla-extract/css";
 
-import { colorVars } from "./contract.css";
+import { colorVars, semanticVars } from "./contract.css";
 
 globalStyle("body", {
-	backgroundColor: colorVars.gray[2],
-	fontFamily:
-		'"Noto Sans", "Noto Sans JP", sans-serif',
+	backgroundColor: semanticVars.background.main,
+	fontFamily: '"Noto Sans", "Noto Sans JP", sans-serif',
 	margin: 0,
 	padding: 0,
 	color: colorVars.gray[12],

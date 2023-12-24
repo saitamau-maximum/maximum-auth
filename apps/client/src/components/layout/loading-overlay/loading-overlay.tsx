@@ -34,13 +34,17 @@ export const LoadingOverlay = () => {
 				<title>Loading</title>
 				<defs>
 					<linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
-						<stop stopColor={vars.color.gray[8]} stopOpacity="0" offset="0%" />
 						<stop
-							stopColor={vars.color.gray[8]}
+							stopColor={vars.semantic.text.weak}
+							stopOpacity="0"
+							offset="0%"
+						/>
+						<stop
+							stopColor={vars.semantic.text.weak}
 							stopOpacity=".631"
 							offset="63.146%"
 						/>
-						<stop stopColor={vars.color.gray[8]} offset="100%" />
+						<stop stopColor={vars.semantic.text.weak} offset="100%" />
 					</linearGradient>
 				</defs>
 				<g fill="none" fillRule="evenodd">
@@ -60,7 +64,7 @@ export const LoadingOverlay = () => {
 								repeatCount="indefinite"
 							/>
 						</path>
-						<circle fill={vars.color.gray[8]} cx="36" cy="18" r="1">
+						<circle fill={vars.semantic.text.weak} cx="36" cy="18" r="1">
 							<animateTransform
 								attributeName="transform"
 								type="rotate"

@@ -11,7 +11,7 @@ export const styles = {
 		width: "100%",
 		height: "100%",
 		zIndex: constants.zIndex.modal,
-		backgroundColor: vars.color.gray[1],
+		backgroundColor: vars.semantic.background.sub,
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",

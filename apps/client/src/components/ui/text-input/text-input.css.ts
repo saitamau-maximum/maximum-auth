@@ -1,5 +1,5 @@
 import { vars } from "@/style";
-import { style } from "@vanilla-extract/css";
+import { globalStyle, style } from "@vanilla-extract/css";
 
 export const styles = {
 	textInputContainer: style({
@@ -8,13 +8,13 @@ export const styles = {
 		width: "100%",
 	}),
 	textInputLabel: style({
-		color: vars.color.gray[11],
+		color: vars.semantic.text.base,
 		fontSize: "1rem",
 		marginBottom: vars.spacing[2],
 	}),
 	textInputLabelRequired: style({
 		marginLeft: vars.spacing[1],
-		color: vars.color.red[9],
+		color: vars.semantic.text.error,
 	}),
 	textInput: style({
 		width: "100%",
@@ -22,38 +22,41 @@ export const styles = {
 		padding: `${vars.spacing[2]} ${vars.spacing[3]}`,
 		borderWidth: "1px",
 		borderStyle: "solid",
-		borderColor: vars.color.gray[6],
-		borderRadius: vars.spacing[2],
-		backgroundColor: vars.color.gray[1],
-		color: vars.color.gray[10],
+		borderColor: vars.semantic.border.main,
+		borderRadius: vars.spacing[1],
+		backgroundColor: vars.semantic.background.sub,
+		color: vars.semantic.text.strong,
 		fontSize: vars.font.size.base,
 		transition: vars.transition.normal("border-color", "box-shadow"),
 		":focus": {
 			outline: "none",
 			borderColor: "transparent",
-			boxShadow: `0 0 0 2px ${vars.color.green[10]}`,
+			boxShadow: `0 0 0 2px ${vars.color.green[9]}`,
 		},
 		"::placeholder": {
-			color: vars.color.gray[8],
+			color: vars.semantic.text.weak,
 		},
 		":disabled": {
-			backgroundColor: vars.color.gray[3],
-			color: vars.color.gray[6],
+			backgroundColor: vars.semantic.background.disabled,
 			cursor: "not-allowed",
 		},
 	}),
 	textInputError: style({
-		borderColor: vars.color.red[9],
-		boxShadow: `0 0 0 0.5px ${vars.color.red[6]}`,
+		borderColor: vars.semantic.text.error,
+		boxShadow: `0 0 0 0.5px ${vars.semantic.border.error}`,
 	}),
 	textInputErrorText: style({
-		color: vars.color.red[9],
+		color: vars.semantic.text.error,
 		fontSize: vars.font.size.xs,
 		marginTop: vars.spacing[2],
 	}),
 	textInputDescription: style({
-		color: vars.color.gray[10],
+		color: vars.semantic.text.weak,
 		fontSize: vars.font.size.xs,
 		marginTop: vars.spacing[2],
 	}),
 };
+
+globalStyle(`${styles.textInput}:disabled::placeholder`, {
+	color: vars.semantic.text.weaker,
+});

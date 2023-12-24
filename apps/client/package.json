@@ -1,44 +1,44 @@
 {
-  "name": "maximum-auth-client",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "check": "biome check ./src",
-    "check:fix": "biome check --apply ./src",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
-  },
-  "dependencies": {
-    "hono": "^3.11.6",
-    "maximum-auth-server": "workspace:^",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.49.2",
-    "react-router-dom": "^6.21.1"
-  },
-  "devDependencies": {
-    "@hookform/resolvers": "^3.3.2",
-    "@storybook/addon-essentials": "^7.6.6",
-    "@storybook/addon-interactions": "^7.6.6",
-    "@storybook/addon-links": "^7.6.6",
-    "@storybook/addon-onboarding": "^1.0.10",
-    "@storybook/addon-themes": "^7.6.6",
-    "@storybook/blocks": "^7.6.6",
-    "@storybook/react": "^7.6.6",
-    "@storybook/react-vite": "^7.6.6",
-    "@storybook/testing-library": "^0.2.2",
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@vanilla-extract/css": "^1.14.0",
-    "@vanilla-extract/vite-plugin": "^3.9.3",
-    "@vitejs/plugin-react": "^4.2.1",
-    "storybook": "^7.6.6",
-    "typescript": "^5.2.2",
-    "valibot": "^0.22.0",
-    "vite": "^5.0.8"
-  }
+	"name": "maximum-auth-client",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"check": "biome check ./src",
+		"check:fix": "biome check --apply ./src",
+		"storybook": "storybook dev -p 6006",
+		"build-storybook": "storybook build"
+	},
+	"dependencies": {
+		"hono": "^3.11.9",
+		"maximum-auth-server": "workspace:^",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-hook-form": "^7.49.2",
+		"react-router-dom": "^6.21.1"
+	},
+	"devDependencies": {
+		"@hookform/resolvers": "^3.3.2",
+		"@storybook/addon-essentials": "^7.6.6",
+		"@storybook/addon-interactions": "^7.6.6",
+		"@storybook/addon-links": "^7.6.6",
+		"@storybook/addon-onboarding": "^1.0.10",
+		"@storybook/addon-themes": "^7.6.6",
+		"@storybook/blocks": "^7.6.6",
+		"@storybook/react": "^7.6.6",
+		"@storybook/react-vite": "^7.6.6",
+		"@storybook/testing-library": "^0.2.2",
+		"@types/react": "^18.2.43",
+		"@types/react-dom": "^18.2.17",
+		"@vanilla-extract/css": "^1.14.0",
+		"@vanilla-extract/vite-plugin": "^3.9.3",
+		"@vitejs/plugin-react": "^4.2.1",
+		"storybook": "^7.6.6",
+		"typescript": "^5.2.2",
+		"valibot": "^0.22.0",
+		"vite": "^5.0.8"
+	}
 }

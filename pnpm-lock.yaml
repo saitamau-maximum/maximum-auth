@@ -27,8 +27,8 @@ importers:
   apps/client:
     dependencies:
       hono:
-        specifier: ^3.11.6
-        version: 3.11.6
+        specifier: ^3.11.9
+        version: 3.11.9
       maximum-auth-server:
         specifier: workspace:^
         version: link:../server
@@ -107,13 +107,13 @@ importers:
     dependencies:
       '@hono/valibot-validator':
         specifier: ^0.2.1
-        version: 0.2.1(hono@3.11.6)(valibot@0.22.0)
+        version: 0.2.1(hono@3.11.9)(valibot@0.22.0)
       drizzle-orm:
         specifier: ^0.29.1
         version: 0.29.1(@cloudflare/workers-types@4.20231121.0)
       hono:
-        specifier: ^3.11.6
-        version: 3.11.6
+        specifier: ^3.11.9
+        version: 3.11.9
       valibot:
         specifier: ^0.22.0
         version: 0.22.0
@@ -2445,13 +2445,13 @@ packages:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
     dev: true
 
-  /@hono/valibot-validator@0.2.1(hono@3.11.6)(valibot@0.22.0):
+  /@hono/valibot-validator@0.2.1(hono@3.11.9)(valibot@0.22.0):
     resolution: {integrity: sha512-C74FACKrlD9YCvyIB4Z1OVbMskhIIttPapHU8co0DV0dQvP1NiQ0YisAqJ1RmIIUUz1G6BMxh4TGx+GG0NwxGQ==}
     peerDependencies:
       hono: '>=3.9.0'
       valibot: ^0.13.1
     dependencies:
-      hono: 3.11.6
+      hono: 3.11.9
       valibot: 0.22.0
     dev: false
 
@@ -6602,8 +6602,8 @@ packages:
     resolution: {integrity: sha512-2bsegYkkHO+h/9MGbn6KWcE45cHZgPANo5LXF7EvWdT0yT2EguSVO1nDgU5c8+ZOPwp2vMNa7YFsJhVcDR9Sdg==}
     dev: true
 
-  /hono@3.11.6:
-    resolution: {integrity: sha512-PwI2NRvDIq4uCQOoF/zRJ81KK10YnnkcTYYuKCHZXD2S4/JhM4grxR1RHkEPgigPlFkCUJEs5HXfluDX++VIaw==}
+  /hono@3.11.9:
+    resolution: {integrity: sha512-vjwVHw/y9xXPf7a87XjAPE9d3NFLyDiDBHmTU5SsGiJoe4BSiU/Yiu5UB9orhP+YGkSwD7fzXmuG7lpvKnr15w==}
     engines: {node: '>=16.0.0'}
     dev: false
 

@@ -3,7 +3,7 @@ import { createMiddleware } from "hono/factory";
 import { UserRepository } from "../repository/user";
 
 import { vValidator } from "@hono/valibot-validator";
-import { getCookie, setCookie } from "hono/cookie";
+import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { email, maxLength, minLength, object, string } from "valibot";
 import {
 	AUTH_CONTEXT_KEY,
@@ -103,8 +103,9 @@ export const userApp = new Hono<Env>()
 		const user = await userRepo.getById({ id: userId });
 
 		if (!user) {
-			return c.json({ message: "error" }, 401);
+			deleteCookie(c, AUTH_COOKIE_NAME);
+			return c.json({ type: "UserNotFound" as const }, 404);
 		}
 
-		return c.json({ message: "ok", user });
+		return c.json({ type: "UserFound" as const, user });
 	});

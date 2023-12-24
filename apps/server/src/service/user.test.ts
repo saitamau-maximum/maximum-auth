@@ -3,7 +3,7 @@ import { hashSecret } from "../util/crypto";
 import { UserService } from "./user";
 
 class MockUserRepository implements IUserRepository {
-	create = vi.fn();
+	create = vi.fn().mockReturnValue({ id: "this-is-mock-id" });
 	getById = vi.fn();
 	getByEmail = vi.fn();
 }
@@ -19,8 +19,13 @@ describe("UserService", () => {
 
 	describe("create", () => {
 		it("should call userRepo.create", async () => {
-			await userService.create("username", "hoge@example.com", "password");
+			const id = await userService.create(
+				"username",
+				"hoge@example.com",
+				"password",
+			);
 			expect(userRepo.create).toBeCalledTimes(1);
+			expect(id).toBe("this-is-mock-id");
 		});
 	});
 
